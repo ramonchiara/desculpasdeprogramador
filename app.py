@@ -1,24 +1,13 @@
 import os
 import random
-import csv
+
 from dotenv import load_dotenv
 from flask import Flask, render_template
 from markupsafe import Markup
 
+from desculpas_csv import load_existing_excuses
+
 app = Flask(__name__)
-
-
-def load_existing_excuses(excuses_csv):
-    excuses = set()
-    try:
-        with open(excuses_csv, newline="", encoding="utf-8") as file:
-            reader = csv.reader(file, delimiter=";")
-            next(reader, None)  # skip header
-            for row in reader:
-                excuses.add((row[0], row[1]))
-    except FileNotFoundError:
-        pass
-    return excuses
 
 
 def get_random_excuse():

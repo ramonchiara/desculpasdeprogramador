@@ -1,4 +1,3 @@
-import csv
 import os
 import random
 import signal
@@ -10,18 +9,7 @@ import requests
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
-
-def load_existing_excuses(excuses_csv):
-    excuses = set()
-    try:
-        with open(excuses_csv, newline="", encoding="utf-8") as file:
-            reader = csv.reader(file, delimiter=";")
-            next(reader, None)  # skip header
-            for row in reader:
-                excuses.add(row[0])
-    except FileNotFoundError:
-        pass
-    return excuses
+from desculpas_csv import load_existing_excuses, save_excuse
 
 
 def get_a_programming_excuse():
@@ -54,14 +42,6 @@ Preserve o tom humorístico e a intenção original da mensagem."""
     return response.choices[0].message.content.strip()
 
 
-def save_excuse(excuses_csv, excuse, translated_excuse):
-    with open(excuses_csv, mode="a", newline="", encoding="utf-8") as file:
-        writer = csv.writer(file, delimiter=";")
-        if file.tell() == 0:
-            writer.writerow(["Original", "Traduzida"])  # write header
-        writer.writerow([excuse, translated_excuse])
-
-
 def sleep_randomly():
     time.sleep(random.uniform(0.1, 2))
 
@@ -74,6 +54,7 @@ def main():
 
     excuses_csv = os.getenv("EXCUSES_CSV")
     excuses = load_existing_excuses(excuses_csv)
+    excuses = {row[0] for row in excuses}
     print(f"Arquivo {excuses_csv} carregado com {len(excuses)} desculpas...")
     print()
 
