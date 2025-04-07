@@ -32,7 +32,7 @@ Obviamente, para este caso, coloque os seguintes valores no arquivo `.env`:
 ```dotenv
 DB_NAME="desculpas_db"
 DB_USER="admin"
-DB_PASSWORD="senhas123"
+DB_PASSWORD="senha123"
 DB_HOST="localhost"
 DB_PORT="5432"
 ```
