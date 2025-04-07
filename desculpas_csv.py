@@ -1,4 +1,5 @@
 import csv
+import random
 
 
 def load_existing_excuses(excuses_csv):
@@ -20,3 +21,9 @@ def save_excuse(excuses_csv, excuse, translated_excuse):
         if file.tell() == 0:
             writer.writerow(["Original", "Traduzida"])  # write header
         writer.writerow([excuse, translated_excuse])
+
+
+def get_random_excuse(excuses_csv):
+    excuses = load_existing_excuses(excuses_csv)
+    excuse = random.choice(list(excuses))
+    return excuse
