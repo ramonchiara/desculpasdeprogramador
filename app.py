@@ -13,8 +13,9 @@ def index():
         excuse, translated_excuse = get_random_excuse()
         translated_excuse = Markup(translated_excuse.replace("\n", "<br/>"))
     except DbError as ex:
+        excuse = "T_T"
         translated_excuse = str(ex)
-    return render_template("index.html", translated_excuse=translated_excuse)
+    return render_template("index.html", excuse=excuse, translated_excuse=translated_excuse)
 
 
 def main():
