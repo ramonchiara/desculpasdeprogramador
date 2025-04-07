@@ -47,7 +47,9 @@ def sleep_randomly():
 
 
 def main():
-    load_dotenv()
+    if not load_dotenv():
+        print("Você precisa configurar o arquivo .env antes...")
+        exit(1)
 
     # Manipula o sinal de interrupção para garantir que o arquivo CSV fique íntegro ao sair.
     signal.signal(signal.SIGINT, lambda sig, frame: sys.exit(0))

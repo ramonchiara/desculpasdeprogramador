@@ -18,7 +18,9 @@ def index():
 
 
 def main():
-    load_dotenv()
+    if not load_dotenv():
+        print("Você precisa configurar o arquivo .env antes...")
+        exit(1)
     app.run(debug=True)
 
 
